@@ -1,7 +1,9 @@
 using Dominio.Interfaces;
+using Dominio.Validadores;
 using Infraestrutura.BancoDeDados;
 using Infraestrutura.Repositorios;
 using Microsoft.EntityFrameworkCore;
+using Servicos.Servicos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<ClienteContext>(options =>
 });
 
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+builder.Services.AddScoped<ClienteValidador>();
+builder.Services.AddScoped<ClienteServico>();
 // Add services to the container.
 
 builder.Services.AddControllers();
