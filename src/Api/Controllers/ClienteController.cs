@@ -1,8 +1,4 @@
-﻿using Dominio.Modelos;
-using Microsoft.AspNetCore.Mvc;
-using Servicos.Servicos;
-
-namespace Api.Controllers
+﻿namespace Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -36,7 +32,7 @@ namespace Api.Controllers
         }
 
         [HttpPatch("{id}")]
-        public NoContentResult Atualizar(int id, [FromBody] Cliente cliente)
+        public NoContentResult Atualizar(int id, [FromBody] Cliente? cliente)
         {
             _clienteServico.Atualizar(id, cliente);
             return NoContent();

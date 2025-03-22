@@ -1,12 +1,5 @@
-using Dominio.Interfaces;
-using Dominio.Validadores;
-using Infraestrutura.BancoDeDados;
-using Infraestrutura.Repositorios;
-using Microsoft.EntityFrameworkCore;
-using Servicos.Servicos;
-
 var builder = WebApplication.CreateBuilder(args);
-
+ILoggerFactory loggerFactory;
 
 builder.Services.AddDbContext<ClienteContext>(options =>
 {
@@ -16,14 +9,19 @@ builder.Services.AddDbContext<ClienteContext>(options =>
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 builder.Services.AddScoped<ClienteValidador>();
 builder.Services.AddScoped<ClienteServico>();
-// Add services to the container.
+
 
 builder.Services.AddControllers();
+
+builder.Services.AdicionarTratamentoDeExcecaoGlobalMiddleware();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -31,6 +29,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseTratamentoDeExcecaoGlobalMiddleware();
+app.UseDetalhesDoProblemaExcecao(loggerFactory);
 
 app.UseHttpsRedirection();
 

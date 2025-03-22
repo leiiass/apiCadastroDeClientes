@@ -1,0 +1,12 @@
+﻿global using Dominio.Interfaces;
+global using Dominio.Validadores;
+global using Infraestrutura.BancoDeDados;
+global using Infraestrutura.Repositorios;
+global using Microsoft.EntityFrameworkCore;
+global using Servicos.Servicos;
+global using Dominio.Modelos;
+global using Microsoft.AspNetCore.Mvc;
+global using Newtonsoft.Json;
+global using System.Net;
+global using Api.Middlewares;
+global using Api.Extensoes;

@@ -15,12 +15,17 @@ namespace Infraestrutura.Repositorios
 
         public List<Cliente> ObterTodos()
         {
-            return _clienteContext.Clientes.ToList();
+            return _clienteContext.Clientes
+                .Include(x => x.Endereco)
+                .ToList();
         }
 
         public Cliente ObterPorId(int id)
         {
-            return _clienteContext.Clientes.Find(id);
+            return _clienteContext.Clientes
+                .Include(x => x.Endereco)
+                .SingleOrDefault(x => x.Id == id)
+                 ?? throw new Exception($"Cliente com id {id} não encontrado.");
         }
 
         public Cliente Criar(Cliente cliente)

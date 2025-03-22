@@ -30,9 +30,8 @@ namespace Servicos.Servicos
             return _clienteRepositorio.Criar(cliente);
         }
 
-        public void Atualizar(int id, Cliente cliente)
+        public void Atualizar(int id, Cliente? cliente)
         {
-            _clienteValidador.Validate(cliente);
             _clienteRepositorio.Atualizar(id, cliente);
         }
 
